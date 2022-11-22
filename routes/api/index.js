@@ -1,8 +1,12 @@
 const router = require('express').Router();
-const postRoutes = require('./postRoutes');
-const commentRoutes = require('./commentRoutes');
+const userRoutes = require('./userRoutes');
+const freindsRoutes = require('./freindsRoutes');
+const thoughtsRoutes = require('./thoughtsRoutes');
+const reactionsRoutes = require('./reactionsRoutes');
 
-router.use('/posts', postRoutes);
-router.use('/comments', commentRoutes);
+router.use('/users', userRoutes);
+router.use('/api/users/:userId/friends/:friendId', freindsRoutes);
+router.use('/thoughts', thoughtsRoutes);
+router.use('/api/thoughts/:thoughtId/reactions', reactionsRoutes);
 
 module.exports = router;
