@@ -2,11 +2,13 @@ const Thought = require('../models/Thoughts');
 const User = require('../models/User');
 
 module.exports = {
+  // Retrieve all thoughts
   getThoughts(req, res) {
     Thought.find()
-      .then((users) => res.json(users))
+      .then((thought) => res.json(thought))
       .catch((err) => res.status(500).json(err));
   },
+  // retrieve a single thought.
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
       .select('-__v')
@@ -23,6 +25,7 @@ module.exports = {
       .then((dbThoughtData) => res.json(dbThoughtData))
       .catch((err) => res.status(500).json(err));
   },
+  // Find a Thought by ID, then update its parameters.
   updateThought(req, res) {
     console.log('You are updating a Thought.');
     console.log(req.body);
@@ -40,6 +43,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+  // find a thought by ID, then delete it.
   deleteThought(req, res) {
     Thought.findOneAndRemove({ _id: req.params.thoughtId })
       .then((thought) =>
@@ -51,8 +55,8 @@ module.exports = {
               { new: true }
             )
       )
-      .then((course) =>
-        !course
+      .then((thought) =>
+        !thought
           ? res.status(404).json({
               message: 'thought deleted, but no thoughts found',
             })
